@@ -1,18 +1,24 @@
 # ✨ CollabFlow
 
-![CollabFlow Banner](https://via.placeholder.com/1200x400/080812/ec4899?text=CollabFlow+-+The+Ultimate+Vibe+Station)
+<img width="1920" height="859" alt="image" src="https://github.com/user-attachments/assets/704771f3-8fb0-4c2e-9164-6f61bf4713d6" />
+
 
 **CollabFlow** is a modern, real-time collaborative document editor designed with a stunning "Gen Z / Cyber-Glass" aesthetic. It features rich-text editing, role-based access control (RBAC), live activity feeds, and AI-powered proofreading.
 
 ## 📸 Screenshots
 
-| Dashboard | Document Editor |
+| Workspace | Document Editor |
 | :---: | :---: |
-| ![Dashboard Screenshot](https://via.placeholder.com/600x350/080812/22d3ee?text=Dashboard+Screenshot+Here) | ![Editor Screenshot](https://via.placeholder.com/600x350/080812/10b981?text=Editor+Screenshot+Here) |
+|<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />
+| <img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/6ff60a32-1efc-4038-85c3-a5895a2bc11e" />
+ |
 
-| Login / Auth | Member Management |
+| Login / Auth | Analytics |
 | :---: | :---: |
-| ![Login Screenshot](https://via.placeholder.com/600x350/080812/a855f7?text=Login+Screenshot+Here) | ![Members Screenshot](https://via.placeholder.com/600x350/080812/f59e0b?text=Members+Screenshot+Here) |
+| <img width="1920" height="870" alt="image" src="https://github.com/user-attachments/assets/2cf82e3e-fea9-48dc-b7a2-8eb12e473548" />
+
+ | <img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/4a8e33db-e675-4665-80dd-be2f6a71f51d" />
+ |
 
 *(Replace the placeholder URLs above with your actual screenshot image links once deployed!)*
 
