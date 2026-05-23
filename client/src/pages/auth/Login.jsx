@@ -72,8 +72,8 @@ export default function Login() {
                             flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer',
                             fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 700,
                             fontSize: '0.85rem', letterSpacing: '-0.02em',
-                            background: !isRegister ? 'rgba(236,72,153,0.15)' : 'transparent',
-                            color: !isRegister ? '#fff' : 'rgba(255,255,255,0.4)',
+                            background: !isRegister ? 'color-mix(in srgb, var(--pink) 15%, transparent)' : 'transparent',
+                            color: !isRegister ? '#fff' : 'var(--text-dim)',
                             transition: 'all 0.2s ease',
                         }}
                     >
@@ -86,8 +86,8 @@ export default function Login() {
                             flex: 1, padding: '10px 0', border: 'none', cursor: 'pointer',
                             fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 700,
                             fontSize: '0.85rem', letterSpacing: '-0.02em',
-                            background: isRegister ? 'rgba(34,211,238,0.15)' : 'transparent',
-                            color: isRegister ? '#fff' : 'rgba(255,255,255,0.4)',
+                            background: isRegister ? 'color-mix(in srgb, var(--blue) 15%, transparent)' : 'transparent',
+                            color: isRegister ? '#fff' : 'var(--text-dim)',
                             transition: 'all 0.2s ease',
                         }}
                     >
@@ -170,9 +170,9 @@ export default function Login() {
                         fontSize: '0.82rem',
                         textAlign: 'center',
                         padding: '8px 14px',
-                        background: 'rgba(236,72,153,0.08)',
+                        background: 'color-mix(in srgb, var(--pink) 8%, transparent)',
                         borderRadius: 10,
-                        border: '1px solid rgba(236,72,153,0.2)',
+                        border: '1px solid color-mix(in srgb, var(--pink) 20%, transparent)',
                         marginBottom: 8,
                     }}>
                         {displayError}
