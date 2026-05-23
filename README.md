@@ -7,16 +7,19 @@
 
 ## 📸 Screenshots
 
-| Workspace | Document Editor |
+| Workspace | 
 | :---: | :---: |
-|<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />|
+|<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />
+| Document Editor |
+| :---: | :---: |
 | <img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/6ff60a32-1efc-4038-85c3-a5895a2bc11e" />|
 
-| Login / Auth | Analytics |
+| Login / Auth |
 | :---: | :---: |
-| <img width="1920" height="870" alt="image" src="https://github.com/user-attachments/assets/2cf82e3e-fea9-48dc-b7a2-8eb12e473548" />|
-
- | <img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/4a8e33db-e675-4665-80dd-be2f6a71f51d" />|
+| <img width="1920" height="870" alt="image" src="https://github.com/user-attachments/assets/2cf82e3e-fea9-48dc-b7a2-8eb12e473548" />
+| Analytics |
+| :---: | :---: |
+| <img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/4a8e33db-e675-4665-80dd-be2f6a71f51d" />|
 
 
 ## 🚀 Features
