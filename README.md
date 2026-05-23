@@ -15,6 +15,7 @@
 
 # Login / Auth 
 <img width="1920" height="870" alt="image" src="https://github.com/user-attachments/assets/2cf82e3e-fea9-48dc-b7a2-8eb12e473548" />
+
 # Analytics 
 <img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/4a8e33db-e675-4665-80dd-be2f6a71f51d" />
 
