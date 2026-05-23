@@ -8,8 +8,7 @@
 ## 📸 Screenshots
 
 | Workspace | 
-
-|<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />
+<img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />
 | Document Editor |
 | :---: | :---: |
 | <img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/6ff60a32-1efc-4038-85c3-a5895a2bc11e" />|
