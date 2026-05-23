@@ -11,13 +11,12 @@ const ROLE_PERMISSIONS = {
     Viewer: ['view'],
 };
 
-// Returns current theme colors by reading CSS variables
+// Returns theme colors using CSS variables so they adapt dynamically to theme changes
 const getRoleColors = () => {
-    const s = getComputedStyle(document.documentElement);
     return {
-        Owner:  s.getPropertyValue('--pink').trim()  || '#ec4899',
-        Editor: s.getPropertyValue('--blue').trim()  || '#22d3ee',
-        Viewer: s.getPropertyValue('--green').trim() || '#10b981',
+        Owner:  'var(--pink)',
+        Editor: 'var(--blue)',
+        Viewer: 'var(--green)',
     };
 };
 
