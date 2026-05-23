@@ -9,6 +9,7 @@
 
 # Workspace 
 <img width="1920" height="872" alt="image" src="https://github.com/user-attachments/assets/8b6a5ebc-128f-4e80-9523-9fbc020141d8" />
+
 # Document Editor 
 <img width="1920" height="861" alt="image" src="https://github.com/user-attachments/assets/6ff60a32-1efc-4038-85c3-a5895a2bc11e" />
 
@@ -18,7 +19,7 @@
 <img width="1920" height="862" alt="image" src="https://github.com/user-attachments/assets/4a8e33db-e675-4665-80dd-be2f6a71f51d" />
 
 
-## 🚀 Features
+##  Features
 
 - **Real-Time Collaboration:** Instantly see updates and edits as they happen.
 - **Role-Based Access Control (RBAC):** Manage permissions with `Owner`, `Editor`, and `Viewer` roles.
@@ -30,7 +31,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend (`/client`)
 - **Framework:** React + Vite
@@ -48,7 +49,7 @@
 
 ---
 
-## 💻 Local Development Setup
+##  Local Development Setup
 
 To run this project locally, you will need **Node.js** and a **MongoDB** database.
 
@@ -97,4 +98,4 @@ The app will now be running on `http://localhost:5173`!
 - **Database:** [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ---
-*Built with 💻 and ✨*
+*Built By Syeda Arisha*
