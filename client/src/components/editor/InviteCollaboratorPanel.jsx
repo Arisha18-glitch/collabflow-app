@@ -138,13 +138,20 @@ export default function InviteCollaboratorPanel({ docId, isOpen, onClose }) {
                     {formState === INVITE_STATES.CONFIRMED && (
                         <div className="invite-state-panel confirmed">
                             <div className="invite-success-icon">✓</div>
-                            <p className="invite-state-text">Invitation Dispatched!</p>
+                            <p className="invite-state-text">Invitation Created!</p>
                             <p className="invite-state-subtext">
-                                Secure invite sent to <strong>{email}</strong> as <strong>{role}</strong>
+                                Invite link generated for <strong>{email}</strong> as <strong>{role}</strong>.
                             </p>
+                            <div className="invite-link-container" style={{ marginTop: '15px', background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px', wordBreak: 'break-all', fontSize: '0.85rem' }}>
+                                <p style={{ color: 'var(--blue)', marginBottom: '8px', fontWeight: 'bold' }}>Share this link with them:</p>
+                                <code style={{ userSelect: 'all', color: 'rgba(255,255,255,0.8)' }}>
+                                    {window.location.origin}/invite/{invitations[0]?.token}
+                                </code>
+                            </div>
                             <button
                                 type="button"
                                 className="invite-another-btn"
+                                style={{ marginTop: '20px' }}
                                 onClick={handleNewInvite}
                             >
                                 Invite Another

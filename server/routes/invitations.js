@@ -66,7 +66,7 @@ router.post('/', requireRole(['Owner', 'Editor']), async (req, res) => {
             console.log(`🔗 http://localhost:5173/invite/${invitation.token}\n`);
         }
 
-        // Return sanitized response — never expose the crypto token to the client
+        // Return response including token since no email service is configured
         res.status(201).json({
             _id: invitation._id,
             email: invitation.email,
@@ -75,6 +75,7 @@ router.post('/', requireRole(['Owner', 'Editor']), async (req, res) => {
             status: invitation.status,
             expiresAt: invitation.expiresAt,
             createdAt: invitation.createdAt,
+            token: invitation.token, // Exposing token so client can show copyable link
         });
     } catch (error) {
         if (process.env.NODE_ENV !== 'production') {

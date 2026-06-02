@@ -29,7 +29,6 @@ import {
     Square, FilePlus, Sparkles, UserPlus, Type
 } from 'lucide-react';
 
-import html2pdf from 'html2pdf.js';
 import { saveAs } from 'file-saver';
 
 function ToolbarButton({ onClick, isActive, title, children, disabled }) {
@@ -107,7 +106,7 @@ export default function EditorPage() {
 
     useEffect(() => {
         if (editor && doc && editor.getHTML() !== doc.content) {
-            editor.commands.setContent(doc.content, false);
+            editor.commands.setContent(doc.content || '', false);
         }
         if (doc) setActiveDoc(doc.id);
     }, [docId, doc?.id]); // eslint-disable-line
@@ -118,7 +117,7 @@ export default function EditorPage() {
         }
     }, [isReadOnly, editor]);
 
-    const handleExportPDF = () => {
+    const handleExportPDF = async () => {
         const element = document.querySelector('.ProseMirror');
         if (!element) return;
         const opt = {
@@ -128,6 +127,7 @@ export default function EditorPage() {
             html2canvas:  { scale: 2 },
             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
+        const html2pdf = (await import('html2pdf.js')).default;
         html2pdf().set(opt).from(element.innerHTML).save();
         setShowExport(false);
     };
