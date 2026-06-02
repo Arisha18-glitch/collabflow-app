@@ -41,8 +41,8 @@ const invitationSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-// Generate cryptographic token before saving
-invitationSchema.pre('save', function (next) {
+// Generate cryptographic token before validation
+invitationSchema.pre('validate', function (next) {
     if (!this.token) {
         this.token = crypto.randomBytes(32).toString('hex');
     }
