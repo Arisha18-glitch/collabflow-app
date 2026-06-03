@@ -15,7 +15,12 @@ router.use(protect);
 // ─────────────────────────────────────────────
 router.get('/', async (req, res) => {
     try {
-        const docs = await Document.find()
+        const docs = await Document.find({
+            $or: [
+                { owner: req.user._id },
+                { collaborators: req.user._id },
+            ],
+        })
             .populate('owner', 'name email role')
             .populate('lastEditedBy', 'name')
             .sort({ updatedAt: -1 });

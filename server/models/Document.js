@@ -20,6 +20,10 @@ const documentSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    collaborators: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
     lastEditedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

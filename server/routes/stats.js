@@ -9,14 +9,40 @@ const router = express.Router();
 router.use(protect);
 
 // ─────────────────────────────────────────────
-// GET /api/stats — get workspace stats
+// GET /api/stats — get workspace stats (scoped to user)
 // ─────────────────────────────────────────────
 router.get('/', async (req, res) => {
     try {
-        const totalDocs = await Document.countDocuments();
-        const totalMembers = await User.countDocuments();
-        const totalActivities = await Activity.countDocuments();
-        const onlineMembers = await User.countDocuments({ status: 'Online' });
+        // Find documents the user owns or collaborates on
+        const docs = await Document.find({
+            $or: [
+                { owner: req.user._id },
+                { collaborators: req.user._id },
+            ],
+        }).select('owner collaborators');
+
+        const totalDocs = docs.length;
+
+        // Collect unique collaborator IDs
+        const userIdSet = new Set();
+        userIdSet.add(req.user._id.toString());
+        for (const doc of docs) {
+            if (doc.owner) userIdSet.add(doc.owner.toString());
+            for (const collab of doc.collaborators || []) {
+                userIdSet.add(collab.toString());
+            }
+        }
+
+        const memberIds = [...userIdSet];
+        const totalMembers = memberIds.length;
+        const onlineMembers = await User.countDocuments({
+            _id: { $in: memberIds },
+            status: 'Online',
+        });
+
+        const totalActivities = await Activity.countDocuments({
+            user: { $in: memberIds },
+        });
 
         res.json({
             totalEdits: totalActivities,
@@ -33,11 +59,31 @@ router.get('/', async (req, res) => {
 });
 
 // ─────────────────────────────────────────────
-// GET /api/stats/activity — get recent activity feed
+// GET /api/stats/activity — get recent activity feed (scoped to user)
 // ─────────────────────────────────────────────
 router.get('/activity', async (req, res) => {
     try {
-        const activities = await Activity.find()
+        // Find documents the user owns or collaborates on
+        const docs = await Document.find({
+            $or: [
+                { owner: req.user._id },
+                { collaborators: req.user._id },
+            ],
+        }).select('owner collaborators');
+
+        // Collect unique collaborator IDs
+        const userIdSet = new Set();
+        userIdSet.add(req.user._id.toString());
+        for (const doc of docs) {
+            if (doc.owner) userIdSet.add(doc.owner.toString());
+            for (const collab of doc.collaborators || []) {
+                userIdSet.add(collab.toString());
+            }
+        }
+
+        const activities = await Activity.find({
+            user: { $in: [...userIdSet] },
+        })
             .populate('user', 'name role')
             .sort({ createdAt: -1 })
             .limit(10);

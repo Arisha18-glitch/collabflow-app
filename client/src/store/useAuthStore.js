@@ -19,6 +19,7 @@ export const useAuthStore = create((set, get) => ({
                 isAuthenticated: true,
                 loading: false,
                 error: null,
+                currentWorkspace: { name: `${data.user.name}'s Workspace` },
             });
             return data;
         } catch (err) {
@@ -39,6 +40,7 @@ export const useAuthStore = create((set, get) => ({
                 isAuthenticated: true,
                 loading: false,
                 error: null,
+                currentWorkspace: { name: `${data.user.name}'s Workspace` },
             });
             return data;
         } catch (err) {
@@ -60,6 +62,7 @@ export const useAuthStore = create((set, get) => ({
             set({
                 user: data.user,
                 isAuthenticated: true,
+                currentWorkspace: { name: `${data.user.name}'s Workspace` },
             });
         } catch {
             localStorage.removeItem('cf_token');

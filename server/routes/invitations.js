@@ -186,6 +186,11 @@ router.post('/accept/:token', async (req, res) => {
         invitation.status = 'accepted';
         await invitation.save();
 
+        // Add the user to the document's collaborators list
+        await Document.findByIdAndUpdate(invitation.documentId, {
+            $addToSet: { collaborators: req.user._id },
+        });
+
         res.json({
             message: 'Invitation accepted successfully',
             documentId: doc._id,

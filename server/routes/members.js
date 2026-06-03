@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const Document = require('../models/Document');
 const Activity = require('../models/Activity');
 const { protect } = require('../middleware/auth');
 const { requireRole } = require('../middleware/rbac');
@@ -10,11 +11,31 @@ const router = express.Router();
 router.use(protect);
 
 // ─────────────────────────────────────────────
-// GET /api/members — list all users (members)
+// GET /api/members — list members the current user collaborates with
 // ─────────────────────────────────────────────
 router.get('/', async (req, res) => {
     try {
-        const members = await User.find().select('-__v').sort({ createdAt: 1 });
+        // Find all documents the user owns or collaborates on
+        const docs = await Document.find({
+            $or: [
+                { owner: req.user._id },
+                { collaborators: req.user._id },
+            ],
+        }).select('owner collaborators');
+
+        // Collect unique user IDs from those documents
+        const userIdSet = new Set();
+        userIdSet.add(req.user._id.toString()); // Always include self
+        for (const doc of docs) {
+            if (doc.owner) userIdSet.add(doc.owner.toString());
+            for (const collab of doc.collaborators || []) {
+                userIdSet.add(collab.toString());
+            }
+        }
+
+        const members = await User.find({ _id: { $in: [...userIdSet] } })
+            .select('-__v')
+            .sort({ createdAt: 1 });
 
         // Map to the shape the frontend expects
         const mapped = members.map(m => ({
