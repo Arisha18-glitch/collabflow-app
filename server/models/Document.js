@@ -28,6 +28,11 @@ const documentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
+    versions: [{
+        content: String,
+        savedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        savedAt: { type: Date, default: Date.now }
+    }],
 }, {
     timestamps: true,  // createdAt, updatedAt
 });

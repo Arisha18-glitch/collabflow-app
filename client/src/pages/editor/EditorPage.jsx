@@ -18,6 +18,7 @@ import PageBorderFrame from '../../components/editor/PageBorderFrame';
 import FormattingStatsBar from '../../components/editor/FormattingStatsBar';
 import ProofreadingPanel from '../../components/editor/ProofreadingPanel';
 import InviteCollaboratorPanel from '../../components/editor/InviteCollaboratorPanel';
+import VersionHistory from '../../components/version/VersionHistory';
 
 import { useDocStore } from '../../store/useDocStore';
 import { useAuthStore } from '../../store/useAuthStore';
@@ -26,7 +27,7 @@ import {
     Heading1, Heading2, Undo, Redo, ArrowLeft, Quote,
     AlignLeft, AlignCenter, AlignRight, AlignJustify,
     Image as ImageIcon, Table as TableIcon, Download,
-    Square, FilePlus, Sparkles, UserPlus, Type
+    Square, FilePlus, Sparkles, UserPlus, Type, History
 } from 'lucide-react';
 
 import { saveAs } from 'file-saver';
@@ -56,6 +57,7 @@ export default function EditorPage() {
     const [showExport, setShowExport] = useState(false);
     const [showProofread, setShowProofread] = useState(false);
     const [showInvite, setShowInvite] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
 
     // Fetch docs if not loaded yet
     useEffect(() => {
@@ -229,6 +231,9 @@ export default function EditorPage() {
                         )}
                         {!isReadOnly && (
                             <>
+                                <button className="ghost-btn" onClick={() => setShowHistory(true)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                    <History size={14} /> History
+                                </button>
                                 <button className="neon-btn" onClick={() => setShowProofread(!showProofread)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', background: 'linear-gradient(135deg, var(--purple), var(--pink))', color: 'white', border: 'none' }}>
                                     <Sparkles size={14} /> AI Proofread
                                 </button>
@@ -318,6 +323,17 @@ export default function EditorPage() {
                 docId={docId}
                 isOpen={showInvite}
                 onClose={() => setShowInvite(false)}
+            />
+
+            {/* Version History Modal */}
+            <VersionHistory
+                docId={docId}
+                isOpen={showHistory}
+                onClose={() => setShowHistory(false)}
+                onRestore={(content) => {
+                    editor.commands.setContent(content, false);
+                    debouncedSave(docId, content);
+                }}
             />
         </div>
     );

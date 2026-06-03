@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import {
     fetchDocsAPI, createDocAPI, updateDocAPI, deleteDocAPI,
     fetchMembersAPI, removeMemberAPI,
-    fetchStatsAPI, fetchActivityAPI,
+    fetchStatsAPI, fetchActivityAPI, fetchWeeklyAPI,
 } from '../services/api';
 
 const ROLE_PERMISSIONS = {
@@ -35,6 +35,8 @@ export const useDocStore = create((set, get) => ({
         membersCount: 0,
     },
     activity: [],
+    weeklyActivity: [],
+    memberContribs: [],
 
     loading: false,
     error: null,
@@ -107,6 +109,18 @@ export const useDocStore = create((set, get) => ({
         }
     },
 
+    // ─── Fetch Weekly Activity from API ───────────
+    fetchWeeklyActivity: async () => {
+        try {
+            const { data } = await fetchWeeklyAPI();
+            set({ weeklyActivity: data.weeklyData, memberContribs: data.memberContribs });
+        } catch (err) {
+            if (process.env.NODE_ENV !== 'production') {
+                console.error('Error fetching weekly activity:', err);
+            }
+        }
+    },
+
     // ─── Actions ──────────────────────────────────
 
     setActiveDoc: (id) => set({ activeDocId: id }),
@@ -117,9 +131,9 @@ export const useDocStore = create((set, get) => ({
         set({ currentUserRole: role });
     },
 
-    addDocument: async (title) => {
+    addDocument: async (title, category = 'General') => {
         try {
-            const { data } = await createDocAPI({ title });
+            const { data } = await createDocAPI({ title, category });
             const newDoc = {
                 id: data._id,
                 title: data.title,

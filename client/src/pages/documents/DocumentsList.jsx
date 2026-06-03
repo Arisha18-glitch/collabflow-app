@@ -10,6 +10,7 @@ export default function DocumentsList() {
 
     const [showModal,  setShowModal]  = useState(false);
     const [newTitle,   setNewTitle]   = useState('');
+    const [newCategory, setNewCategory] = useState('General');
 
     // Fetch docs on mount
     useEffect(() => {
@@ -20,8 +21,9 @@ export default function DocumentsList() {
         const t = newTitle.trim();
         if (!t) return;
         try {
-            await addDocument(t);
+            await addDocument(t, newCategory);
             setNewTitle('');
+            setNewCategory('General');
             setShowModal(false);
         } catch (err) {
             if (process.env.NODE_ENV !== 'production') {
@@ -63,6 +65,30 @@ export default function DocumentsList() {
                             onKeyDown={e => e.key === 'Enter' && handleCreate()}
                             autoFocus
                         />
+                        <div style={{ marginTop: 16, marginBottom: 16 }}>
+                            <div className="label-text" style={{ marginBottom: 8 }}>Category</div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                {Object.keys(CATEGORY_COLORS).map(cat => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setNewCategory(cat)}
+                                        style={{
+                                            padding: '6px 12px',
+                                            borderRadius: 100,
+                                            fontSize: '0.75rem',
+                                            fontWeight: 700,
+                                            background: newCategory === cat ? CATEGORY_COLORS[cat] : `color-mix(in srgb, ${CATEGORY_COLORS[cat]} 10%, transparent)`,
+                                            color: newCategory === cat ? '#000' : CATEGORY_COLORS[cat],
+                                            border: `1px solid ${newCategory === cat ? 'transparent' : `color-mix(in srgb, ${CATEGORY_COLORS[cat]} 30%, transparent)`}`,
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s',
+                                        }}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                         <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
                             <button className="ghost-btn" onClick={() => setShowModal(false)} style={{ flex: 1 }}>Cancel</button>
                             <button className="neon-btn" onClick={handleCreate} style={{ flex: 1 }}>Create</button>

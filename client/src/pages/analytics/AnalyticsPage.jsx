@@ -12,34 +12,21 @@ const CATEGORY_COLORS = {
     General:  '#f59e0b',
 };
 
-const WEEKLY_DATA = [
-    { day: 'Mon', edits: 32, color: 'var(--pink)' },
-    { day: 'Tue', edits: 45, color: 'var(--blue)' },
-    { day: 'Wed', edits: 28, color: 'var(--purple)' },
-    { day: 'Thu', edits: 51, color: 'var(--green)' },
-    { day: 'Fri', edits: 38, color: 'var(--pink)' },
-    { day: 'Sat', edits: 15, color: 'var(--blue)' },
-    { day: 'Sun', edits: 12, color: 'var(--purple)' },
-];
-const maxWeekly = Math.max(...WEEKLY_DATA.map(d => d.edits));
+
 
 export default function AnalyticsPage() {
     const navigate = useNavigate();
-    const { stats, members, docs, fetchStats, fetchMembers, fetchDocuments } = useDocStore();
+    const { stats, members, docs, fetchStats, fetchMembers, fetchDocuments, weeklyActivity, memberContribs, fetchWeeklyActivity } = useDocStore();
 
     useEffect(() => {
         fetchStats();
         fetchMembers();
         fetchDocuments();
+        fetchWeeklyActivity();
     }, []);
 
-    const memberContribs = members.map((m, i) => ({
-        ...m,
-        edits: m.role === 'Owner'  ? Math.round((stats.totalEdits || 0) * 0.45) :
-               m.role === 'Editor' ? Math.round((stats.totalEdits || 0) * 0.25 - i * 4) :
-                                     Math.round((stats.totalEdits || 0) * 0.05),
-    }));
     const maxEdits = Math.max(...memberContribs.map(m => m.edits), 1);
+    const maxWeekly = Math.max(...weeklyActivity.map(d => d.edits), 1);
 
     const categoryBreakdown = {};
     docs.forEach(d => {
@@ -97,7 +84,7 @@ export default function AnalyticsPage() {
                         <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.25)' }}>Last 7 days</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 140, paddingTop: 8 }}>
-                        {WEEKLY_DATA.map(d => (
+                        {weeklyActivity.map(d => (
                             <div key={d.day} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                                 <span style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)' }}>{d.edits}</span>
                                 <div style={{

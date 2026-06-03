@@ -100,6 +100,26 @@ router.put('/:id', requireRole(['Owner', 'Editor']), async (req, res) => {
             return res.status(404).json({ message: 'Document not found' });
         }
 
+        // Check if user is owner or collaborator
+        const isOwner = doc.owner.toString() === req.user._id.toString();
+        const isCollaborator = doc.collaborators && doc.collaborators.some(c => c.toString() === req.user._id.toString());
+        if (!isOwner && !isCollaborator) {
+            return res.status(403).json({ message: 'Not authorized to edit this document' });
+        }
+
+        // Save current state to versions if content is changing
+        if (content !== undefined && doc.content && doc.content !== content) {
+            doc.versions.push({
+                content: doc.content,
+                savedBy: doc.lastEditedBy || doc.owner,
+                savedAt: doc.updatedAt
+            });
+            // Keep only the last 20 versions
+            if (doc.versions.length > 20) {
+                doc.versions.shift();
+            }
+        }
+
         if (title !== undefined) doc.title = title;
         if (content !== undefined) doc.content = sanitizeHtml(content);
         if (category !== undefined) doc.category = category;
@@ -115,6 +135,34 @@ router.put('/:id', requireRole(['Owner', 'Editor']), async (req, res) => {
     } catch (error) {
         console.error('Update document error:', error);
         res.status(500).json({ message: 'Error updating document' });
+    }
+});
+
+// ─────────────────────────────────────────────
+// GET /api/documents/:id/versions — get version history
+// ─────────────────────────────────────────────
+router.get('/:id/versions', async (req, res) => {
+    try {
+        const doc = await Document.findById(req.params.id)
+            .populate('versions.savedBy', 'name')
+            .select('versions');
+            
+        if (!doc) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        // Map versions for frontend
+        const versions = doc.versions.map(v => ({
+            id: v._id,
+            content: v.content,
+            savedBy: v.savedBy?.name || 'Unknown',
+            savedAt: v.savedAt
+        })).reverse(); // Newest first
+
+        res.json(versions);
+    } catch (error) {
+        console.error('Get versions error:', error);
+        res.status(500).json({ message: 'Error fetching versions' });
     }
 });
 

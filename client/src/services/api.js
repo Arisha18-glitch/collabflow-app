@@ -46,6 +46,7 @@ export const fetchDocAPI = (id) => api.get(`/documents/${id}`);
 export const createDocAPI = (data) => api.post('/documents', data);
 export const updateDocAPI = (id, data) => api.put(`/documents/${id}`, data);
 export const deleteDocAPI = (id) => api.delete(`/documents/${id}`);
+export const fetchVersionsAPI = (id) => api.get(`/documents/${id}/versions`);
 
 // ═══════════════════════════════════════════════
 // Members API
@@ -59,6 +60,7 @@ export const removeMemberAPI = (id) => api.delete(`/members/${id}`);
 // ═══════════════════════════════════════════════
 export const fetchStatsAPI = () => api.get('/stats');
 export const fetchActivityAPI = () => api.get('/stats/activity');
+export const fetchWeeklyAPI = () => api.get('/stats/weekly');
 
 // ═══════════════════════════════════════════════
 // Invitations API
