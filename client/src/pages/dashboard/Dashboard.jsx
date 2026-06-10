@@ -83,7 +83,6 @@ export default function Dashboard() {
             )}
 
             <div className="bento-grid">
-                {/* ── Hero Card ── */}
                 <TiltCard style={{ gridColumn: 'span 3', minHeight: 260, display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'visible' }}>
                     <span className="label-text">{greeting}{user ? `, ${user.name}` : ''}</span>
                     <h1 className="hero-text" style={{ marginBottom: 12 }}>
@@ -95,7 +94,7 @@ export default function Dashboard() {
                     <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem', maxWidth: 440, lineHeight: 1.65, marginBottom: 28 }}>
                         The ultimate vibe station for your big brain ideas, sick designs, and async drops — no cap.
                     </p>
-                    <div style={{ display: 'flex', gap: 10 }}>
+                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                         <button
                             id="quick-create-btn"
                             className="neon-btn glow-pink"
@@ -231,7 +230,7 @@ export default function Dashboard() {
                             No documents yet — create your first one!
                         </p>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+                        <div className="bento-grid" style={{ padding: 0, maxWidth: 'none' }}>
                             {docs.slice(0, 4).map((doc) => (
                                 <div
                                     key={doc.id}

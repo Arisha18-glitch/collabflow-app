@@ -202,7 +202,7 @@ export default function EditorPage() {
                             {doc.title}
                         </div>
                     </div>
-                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexShrink: 0, position: 'relative' }}>
+                    <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexShrink: 0, position: 'relative', flexWrap: 'wrap' }}>
                         {/* MS Word Download Options */}
                         <div style={{ position: 'relative' }}>
                             <button className="neon-btn" onClick={() => setShowExport(!showExport)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

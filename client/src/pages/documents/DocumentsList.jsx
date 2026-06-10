@@ -6,7 +6,7 @@ import TiltCard from '../../components/ui/TiltCard';
 
 export default function DocumentsList() {
     const navigate = useNavigate();
-    const { docs, deleteDocument, addDocument, setActiveDoc, fetchDocuments, loading } = useDocStore();
+    const { docs, deleteDocument, addDocument, setActiveDoc, fetchDocuments, loading, error } = useDocStore();
 
     const [showModal,  setShowModal]  = useState(false);
     const [newTitle,   setNewTitle]   = useState('');
@@ -99,7 +99,7 @@ export default function DocumentsList() {
 
             <div style={{ maxWidth: 920, margin: '0 auto' }}>
                 {/* Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, flexWrap: 'wrap', gap: 12 }}>
                     <div>
                         <span className="label-text">Library</span>
                         <h1 className="hero-text" style={{ fontSize: '2.6rem', marginBottom: 0 }}>
@@ -118,7 +118,24 @@ export default function DocumentsList() {
 
                 {loading ? (
                     <TiltCard style={{ textAlign: 'center', padding: '60px 32px' }}>
-                        <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem' }}>Loading documents...</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+                            <div className="loading-spinner" />
+                            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '1rem' }}>Loading documents...</div>
+                        </div>
+                    </TiltCard>
+                ) : error ? (
+                    <TiltCard style={{ textAlign: 'center', padding: '60px 32px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+                            <div style={{ fontSize: '2.5rem' }}>⚠️</div>
+                            <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1rem', maxWidth: 400 }}>{error}</div>
+                            <button
+                                className="neon-btn"
+                                onClick={() => fetchDocuments()}
+                                style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}
+                            >
+                                ↻ Retry
+                            </button>
+                        </div>
                     </TiltCard>
                 ) : docs.length === 0 ? (
                     <TiltCard style={{ textAlign: 'center', padding: '60px 32px' }}>

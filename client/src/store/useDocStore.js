@@ -45,7 +45,10 @@ export const useDocStore = create((set, get) => ({
     fetchDocuments: async () => {
         set({ loading: true, error: null });
         try {
-            const { data } = await fetchDocsAPI();
+            const timeoutPromise = new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Request timed out — is the server running?')), 10000)
+            );
+            const { data } = await Promise.race([fetchDocsAPI(), timeoutPromise]);
             // Map MongoDB docs to the shape the frontend expects
             const mapped = data.map(d => ({
                 id: d._id,
@@ -57,9 +60,12 @@ export const useDocStore = create((set, get) => ({
                 createdAt: d.createdAt,
                 updatedAt: d.updatedAt,
             }));
-            set({ docs: mapped, loading: false });
+            set({ docs: mapped, loading: false, error: null });
         } catch (err) {
-            set({ loading: false, error: err.response?.data?.message || 'Error fetching documents' });
+            const message = err.response?.data?.message
+                || err.message
+                || 'Unable to fetch documents. Check your connection.';
+            set({ loading: false, error: message });
         }
     },
 
