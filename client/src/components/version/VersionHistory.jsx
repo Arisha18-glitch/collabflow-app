@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Clock, RotateCcw } from 'lucide-react';
-import { fetchVersionsAPI } from '../../../services/api';
+import { fetchVersionsAPI } from '../../services/api';
 
 export default function VersionHistory({ docId, isOpen, onClose, onRestore }) {
     const [versions, setVersions] = useState([]);
